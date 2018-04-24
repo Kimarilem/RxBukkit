@@ -1,4 +1,4 @@
-package com.kimarilem.bukkit.rxbukkit.internal
+package com.kimarilem.bukkit.rxbukkit.internal.observable
 
 import com.kimarilem.bukkit.rxbukkit.CommandEvent
 import io.reactivex.Emitter

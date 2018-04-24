@@ -1,12 +1,11 @@
 package com.kimarilem.bukkit.rxbukkit.internal
 
 import com.kimarilem.bukkit.rxbukkit.EventListenerData
+import com.kimarilem.bukkit.rxbukkit.internal.observable.BukkitObservableFactory
 import io.kotlintest.TestCaseContext
-import io.kotlintest.matchers.shouldBe
 import io.kotlintest.matchers.shouldNotBe
 import io.kotlintest.mock.mock
 import io.kotlintest.specs.WordSpec
-import io.reactivex.Observable
 import org.bukkit.event.EventPriority
 import org.bukkit.event.player.PlayerEggThrowEvent
 import org.bukkit.plugin.Plugin
