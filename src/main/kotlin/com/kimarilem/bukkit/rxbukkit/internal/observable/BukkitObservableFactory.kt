@@ -1,7 +1,8 @@
-package com.kimarilem.bukkit.rxbukkit.internal
+package com.kimarilem.bukkit.rxbukkit.internal.observable
 
 import com.kimarilem.bukkit.rxbukkit.CommandEvent
 import com.kimarilem.bukkit.rxbukkit.EventListenerData
+import com.kimarilem.bukkit.rxbukkit.internal.BukkitAdapter
 import io.reactivex.Emitter
 import io.reactivex.Observable
 import org.bukkit.event.Event

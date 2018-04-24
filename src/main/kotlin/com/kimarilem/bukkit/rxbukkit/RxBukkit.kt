@@ -1,6 +1,6 @@
 package com.kimarilem.bukkit.rxbukkit
 
-import com.kimarilem.bukkit.rxbukkit.internal.BukkitObservableFactory
+import com.kimarilem.bukkit.rxbukkit.internal.observable.BukkitObservableFactory
 import com.kimarilem.bukkit.rxbukkit.internal.DefaultBukkitAdapter
 import io.reactivex.Observable
 import org.bukkit.event.Event
