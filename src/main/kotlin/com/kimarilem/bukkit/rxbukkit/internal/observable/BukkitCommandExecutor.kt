@@ -8,6 +8,7 @@ import org.bukkit.command.CommandSender
 
 internal class BukkitCommandExecutor(private val emitter: Emitter<CommandEvent>) : CommandExecutor {
 
+	@Suppress("TooGenericExceptionCaught")
 	override fun onCommand(sender: CommandSender, command: Command, label: String, args: Array<String>): Boolean {
 		try {
 			emitter.onNext(CommandEvent(command, sender, label, args.asList()))

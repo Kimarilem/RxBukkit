@@ -24,9 +24,8 @@ object RxBukkit {
 	inline fun <reified T : Event> observeEvent(
 		plugin: Plugin,
 		eventListenerData: EventListenerData = EventListenerData(EventPriority.NORMAL, false)
-	): Observable<T> {
-		return observeEvent(plugin, T::class.java, eventListenerData)
-	}
+	): Observable<T> = observeEvent(plugin, T::class.java, eventListenerData)
+
 
 	/**
 	 * Create an observable for an event.
@@ -41,9 +40,7 @@ object RxBukkit {
 		plugin: Plugin,
 		eventClass: Class<T>,
 		eventListenerData: EventListenerData = EventListenerData(EventPriority.NORMAL, false)
-	): Observable<T> {
-		return bukkitObservableFactory.createEventObservable(plugin, eventClass, eventListenerData)
-	}
+	): Observable<T> = bukkitObservableFactory.createEventObservable(plugin, eventClass, eventListenerData)
 
 	/**
 	 * Create an observable for a command.
@@ -53,7 +50,6 @@ object RxBukkit {
 	 * @param command the command to create the observable for
 	 */
 	@JvmStatic
-	fun observeCommand(plugin: Plugin, command: String): Observable<CommandEvent> {
-		return bukkitObservableFactory.createCommandObservable(plugin, command)
-	}
+	fun observeCommand(plugin: Plugin, command: String): Observable<CommandEvent> =
+		bukkitObservableFactory.createCommandObservable(plugin, command)
 }

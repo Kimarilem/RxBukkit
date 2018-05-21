@@ -9,6 +9,7 @@ sudo: false
 jdk:
 - openjdk8
 - openjdk11
+before_script: ./gradlew detektCheck
 script: ./gradlew check
 deploy:
 # upload release artifacts

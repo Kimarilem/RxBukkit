@@ -17,26 +17,23 @@ internal class BukkitObservableFactory(private val bukkitAdapter: BukkitAdapter)
 		plugin: Plugin,
 		eventClass: Class<T>,
 		eventListenerData: EventListenerData
-	): Observable<T> {
+	): Observable<T> = Observable.create<T> { emitter ->
+		val listener = object : Listener {}
+		val eventExecutor = BukkitEventExecutor<T>(emitter, eventClass)
 
-		return Observable.create<T> { emitter ->
-			val listener = object : Listener {}
-			val eventExecutor = BukkitEventExecutor<T>(emitter, eventClass)
-
-			bukkitAdapter.registerEvent(plugin, eventClass, eventListenerData, listener, eventExecutor)
-			registerDisableEvent(plugin, emitter, listener)
-		}
+		bukkitAdapter.registerEvent(plugin, eventClass, eventListenerData, listener, eventExecutor)
+		registerDisableEvent(plugin, emitter, listener)
 	}
 
-	fun createCommandObservable(plugin: Plugin, command: String): Observable<CommandEvent> {
-		return Observable.create<CommandEvent> { emitter ->
+
+	fun createCommandObservable(plugin: Plugin, command: String): Observable<CommandEvent> =
+		Observable.create<CommandEvent> { emitter ->
 			val commandExecutor = BukkitCommandExecutor(emitter)
 			val pluginCommand = bukkitAdapter.getCommand(plugin, command)
 				?: throw NullPointerException("Command '$command' not registered")
 
 			bukkitAdapter.registerCommand(pluginCommand, commandExecutor)
 		}
-	}
 
 	private fun <T : Event> registerDisableEvent(plugin: Plugin, emitter: Emitter<T>, listener: Listener) {
 		val disableEventExecutor = BukkitPluginDisableEventExecutor(plugin, emitter)

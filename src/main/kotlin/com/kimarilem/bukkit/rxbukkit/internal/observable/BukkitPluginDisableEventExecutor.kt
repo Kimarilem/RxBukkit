@@ -13,7 +13,7 @@ internal class BukkitPluginDisableEventExecutor(
 ) : EventExecutor {
 
 	override fun execute(listener: Listener, event: Event) {
-		if ((event as PluginDisableEvent).plugin == plugin) {
+		if ((event as? PluginDisableEvent)?.plugin == plugin) {
 			emitter.onComplete()
 		}
 	}

@@ -3,6 +3,7 @@ version rootProject.file('VERSION').text.trim()
 
 buildscript {
 	ext {
+		detekt_plugin_version = '1.0.0-RC12'
 		bintray_plugin_version = '1.8.4'
 		artifactory_plugin_version = '4.9.0'
 
@@ -16,12 +17,15 @@ buildscript {
 	}
 
 	repositories {
-		jcenter()
+		maven {
+			url "https://plugins.gradle.org/m2/"
+		}
 	}
 
 	dependencies {
-		classpath group: 'com.jfrog.bintray.gradle', name: 'gradle-bintray-plugin', version :bintray_plugin_version
-		classpath group: 'org.jfrog.buildinfo', name: 'build-info-extractor-gradle', version:artifactory_plugin_version
+		classpath group: 'io.gitlab.arturbosch.detekt', name: 'detekt-gradle-plugin', version: detekt_plugin_version
+		classpath group: 'com.jfrog.bintray.gradle', name: 'gradle-bintray-plugin', version: bintray_plugin_version
+		classpath group: 'org.jfrog.buildinfo', name: 'build-info-extractor-gradle', version: artifactory_plugin_version
 
 		classpath group: 'org.jetbrains.kotlin', name: 'kotlin-gradle-plugin', version: kotlin_version
 		classpath group: 'org.jetbrains.dokka', name: 'dokka-gradle-plugin', version: dokka_version
@@ -29,6 +33,8 @@ buildscript {
 }
 
 apply plugin: 'kotlin'
+apply plugin: 'io.gitlab.arturbosch.detekt'
+
 apply plugin: 'org.jetbrains.dokka'
 apply plugin: 'maven-publish'
 apply plugin: 'com.jfrog.bintray'
@@ -64,6 +70,12 @@ tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
 
 test {
 	useJUnitPlatform()
+}
+
+detekt {
+	version = detekt_plugin_version
+	config = files("$projectDir/detekt.yml")
+	filters = ""
 }
 
 def dokkaConfiguration = {
