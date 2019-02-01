@@ -8,7 +8,7 @@ install: true
 sudo: false
 jdk:
 - openjdk8
-- oraclejdk9
+- openjdk11
 script: ./gradlew check
 deploy:
 # upload release artifacts
@@ -16,13 +16,13 @@ deploy:
   script: ./gradlew -x test bintrayUpload -Dbintray.user=$BINTRAY_USER -Dbintray.key=$BINTRAY_API_KEY
   on:
     tags: true
-    jdk: oraclejdk9
+    jdk: openjdk11
 # upload snapshot artifacts
 - provider: script
   script: ./gradlew -x test artifactoryPublish -Dbintray.user=$BINTRAY_USER -Dbintray.key=$BINTRAY_API_KEY -Dbuild.number=$TRAVIS_BUILD_NUMBER
   on:
     branch: master
-    jdk: oraclejdk9
+    jdk: openjdk11
 notifications:
   slack:
     secure: NjmEryt/HwF9s1WT9SDWFKpEdY4jR74oWad3iMdYR0Rn97EmiOWWPawf8q0OYaq55Kmpa2AXEbepqteTw9ZjqV4mvQzol3vWAZ8bUvzvkks3bU6Ko5TVvqXTwm6WigylDCwJywOec7bdtfwmk/PMoRFTvsP8cJNuqQ7KJ8XFK7llrH/wQQp85hIcMcpD9Tbi6ZW+HrWXMh01i0vp6ClDesAkaKQ8gEkVxrpqPpI9B3CpxmvILPd1MZnt8L5KWcPwldtql+RF3viWMGuKpMK75GfccnvBUwpOJ8AZo4c30GU3GSw3NpYUUHCEBPQ5hWhzJ0/WxmbupH+Nx7Zk+qtBUhZMbV1vfxjXWmjjvK9IchUqBjaqKrGHjQanSfH/YxLe5YQgLqD+ErRzUGpuDRXj6+Tngo5jN+QN2ufQIf64+OgWfmBF6Zqq48bY0xWZoiBRpv1RjFlniIg+5ATmkIMKvuy/uA0PdeAmSkh9j4E6YDbJ2ij4V0tRhH1UzaHuiKZXLpfhmvusZQKn3fKrlwdueg3bg511U+QOpouJhv8fTL4NucAcMJeaGXj7VkBmfWikLoiRJhxJbaTuawkdlAyIdDlyGW6KxKJ5fNOoma0zOFjmq+ALAeqcHYQm7sv55NsvLopMkTU0v9nGBPPmxYNVdRV2eDZzl0xl5/1MALij39M=
