@@ -67,8 +67,6 @@ test {
 }
 
 def dokkaConfiguration = {
-	processConfigurations = ['compile', 'compileOnly']
-
 	externalDocumentationLink {
 		url = new URL("https://hub.spigotmc.org/javadocs/bukkit/")
 	}
