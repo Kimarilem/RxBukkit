@@ -15,8 +15,8 @@ import org.bukkit.command.CommandSender
  */
 @Suppress("MemberVisibilityCanBePrivate")
 data class CommandEvent(
-	val cmd: Command,
-	val sender: CommandSender,
-	val label: String,
-	val args: List<String>
+    val cmd: Command,
+    val sender: CommandSender,
+    val label: String,
+    val args: List<String>
 )
