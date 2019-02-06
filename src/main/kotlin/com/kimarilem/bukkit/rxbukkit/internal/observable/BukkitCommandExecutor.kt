@@ -8,12 +8,12 @@ import org.bukkit.command.CommandSender
 
 internal class BukkitCommandExecutor(private val emitter: Emitter<CommandEvent>) : CommandExecutor {
 
-	override fun onCommand(sender: CommandSender, command: Command, label: String, args: Array<String>): Boolean {
-		try {
-			emitter.onNext(CommandEvent(command, sender, label, args.asList()))
-		} catch (t: Throwable) {
-			return false
-		}
-		return true
-	}
+    override fun onCommand(sender: CommandSender, command: Command, label: String, args: Array<String>): Boolean {
+        try {
+            emitter.onNext(CommandEvent(command, sender, label, args.asList()))
+        } catch (t: Throwable) {
+            return false
+        }
+        return true
+    }
 }
