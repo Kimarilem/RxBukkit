@@ -1,7 +1,8 @@
 package com.kimarilem.bukkit.rxbukkit
 
+import com.kimarilem.bukkit.rxbukkit.internal.bukkit.BukkitCommandService
+import com.kimarilem.bukkit.rxbukkit.internal.bukkit.BukkitEventService
 import com.kimarilem.bukkit.rxbukkit.internal.observable.BukkitObservableFactory
-import com.kimarilem.bukkit.rxbukkit.internal.DefaultBukkitAdapter
 import io.reactivex.Observable
 import org.bukkit.event.Event
 import org.bukkit.event.EventPriority
@@ -12,7 +13,10 @@ import org.bukkit.plugin.Plugin
  */
 object RxBukkit {
 
-    private val bukkitObservableFactory: BukkitObservableFactory = BukkitObservableFactory(DefaultBukkitAdapter())
+    private val bukkitObservableFactory: BukkitObservableFactory = BukkitObservableFactory(
+        BukkitEventService(),
+        BukkitCommandService()
+    )
 
     /**
      * Create an observable for an event.
