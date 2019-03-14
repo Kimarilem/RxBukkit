@@ -2,6 +2,7 @@ package com.kimarilem.bukkit.rxbukkit.internal.bukkit
 
 import com.kimarilem.bukkit.rxbukkit.EventListenerData
 import org.bukkit.event.Event
+import org.bukkit.event.HandlerList
 import org.bukkit.event.Listener
 import org.bukkit.plugin.EventExecutor
 import org.bukkit.plugin.Plugin
@@ -12,8 +13,11 @@ internal interface EventService {
         plugin: Plugin,
         eventClass: Class<T>,
         eventListenerData: EventListenerData,
-        eventExecutor: EventExecutor
+        eventExecutor: EventExecutor,
+        listener: Listener
     )
+
+    fun deregisterEvents(listener: Listener)
 }
 
 internal class BukkitEventService : EventService {
@@ -22,15 +26,21 @@ internal class BukkitEventService : EventService {
         plugin: Plugin,
         eventClass: Class<T>,
         eventListenerData: EventListenerData,
-        eventExecutor: EventExecutor
+        eventExecutor: EventExecutor,
+        listener: Listener
+
     ) {
         plugin.server.pluginManager.registerEvent(
             eventClass,
-            object : Listener {},
+            listener,
             eventListenerData.priority,
             eventExecutor,
             plugin,
             eventListenerData.shouldIgnoreCancelled
         )
+    }
+
+    override fun deregisterEvents(listener: Listener) {
+        HandlerList.unregisterAll(listener)
     }
 }

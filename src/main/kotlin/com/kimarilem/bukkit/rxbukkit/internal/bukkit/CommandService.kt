@@ -7,6 +7,7 @@ import org.bukkit.plugin.Plugin
 internal interface CommandService {
 
     fun registerCommand(command: PluginCommand, commandExecutor: CommandExecutor)
+    fun deregisterCommand(command: PluginCommand)
     fun getCommand(plugin: Plugin, command: String): PluginCommand?
 }
 
@@ -14,6 +15,10 @@ internal class BukkitCommandService : CommandService {
 
     override fun registerCommand(command: PluginCommand, commandExecutor: CommandExecutor) {
         command.executor = commandExecutor
+    }
+
+    override fun deregisterCommand(command: PluginCommand) {
+        command.executor = null
     }
 
     override fun getCommand(plugin: Plugin, command: String) =
