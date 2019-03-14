@@ -14,11 +14,11 @@ internal interface CommandService {
 internal class BukkitCommandService : CommandService {
 
     override fun registerCommand(command: PluginCommand, commandExecutor: CommandExecutor) {
-        command.executor = commandExecutor
+        command.setExecutor(commandExecutor)
     }
 
     override fun deregisterCommand(command: PluginCommand) {
-        command.executor = null
+        command.setExecutor(null)
     }
 
     override fun getCommand(plugin: Plugin, command: String) =
