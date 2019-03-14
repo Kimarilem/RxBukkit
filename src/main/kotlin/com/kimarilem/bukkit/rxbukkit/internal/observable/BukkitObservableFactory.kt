@@ -51,6 +51,14 @@ internal class BukkitObservableFactory(
     private fun <T> registerDisableEvent(plugin: Plugin, emitter: Emitter<T>, listener: Listener) {
         val disableEventExecutor = BukkitPluginDisableEventExecutor(plugin, emitter)
 
+        /*
+         * The disable event is registered with MONITOR priority, which means the executor 'sees' the event as one of
+         * the last executors. Since the PluginDisableEvent is not cancellable, the shouldIgnoreCancelled boolean isn't
+         * relevant.
+         *
+         * Caveat: if you create an observable for a PluginDisableEvent with priority MONITOR, you may or may not see
+         * an onNext for your own plugin depending on in which order Bukkit executes executors with the same priority.
+         */
         eventService.registerEvent(
             plugin,
             PluginDisableEvent::class.java,
