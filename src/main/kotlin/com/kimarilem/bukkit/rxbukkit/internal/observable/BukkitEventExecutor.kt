@@ -5,15 +5,14 @@ import org.bukkit.event.Event
 import org.bukkit.event.Listener
 import org.bukkit.plugin.EventExecutor
 
-@Suppress("UNCHECKED_CAST")
-internal class BukkitEventExecutor<T : Event>(
-    private val emitter: Emitter<T>,
-    private val eventClass: Class<T>
-) : EventExecutor {
+internal class BukkitEventExecutor<T : Event>(private val emitter: Emitter<T>) : EventExecutor {
 
+    /*
+     * This cast is safe as long as Bukkit never calls this executor with another type than it was registered with
+     * If this happens, it should be considered a bug in Bukkit
+     */
+    @Suppress("UNCHECKED_CAST")
     override fun execute(listener: Listener, event: Event) {
-        if (event.javaClass.isAssignableFrom(eventClass)) {
-            emitter.onNext(event as T)
-        }
+        emitter.onNext(event as T)
     }
 }

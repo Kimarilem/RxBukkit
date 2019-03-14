@@ -22,7 +22,7 @@ internal class BukkitObservableFactory(
         eventClass: Class<T>,
         eventListenerData: EventListenerData
     ) = Observable.create<T> { emitter ->
-        val eventExecutor = BukkitEventExecutor<T>(emitter, eventClass)
+        val eventExecutor = BukkitEventExecutor<T>(emitter)
         val listener = object : Listener {}
 
         eventService.registerEvent(plugin, eventClass, eventListenerData, eventExecutor, listener)
