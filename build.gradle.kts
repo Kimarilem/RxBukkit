@@ -7,7 +7,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import org.jfrog.gradle.plugin.artifactory.dsl.PublisherConfig
 import org.jfrog.gradle.plugin.artifactory.dsl.ResolverConfig
 import java.net.URL
-import java.util.*
+import java.util.UUID
 
 group = "com.kimarilem.bukkit.rxbukkit"
 version = rootProject.file("VERSION").readText().trim()
