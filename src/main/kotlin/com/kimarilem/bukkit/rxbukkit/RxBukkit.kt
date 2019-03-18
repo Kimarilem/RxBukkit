@@ -4,6 +4,7 @@ import com.kimarilem.bukkit.rxbukkit.internal.bukkit.BukkitCommandService
 import com.kimarilem.bukkit.rxbukkit.internal.bukkit.BukkitEventService
 import com.kimarilem.bukkit.rxbukkit.internal.observable.BukkitObservableFactory
 import io.reactivex.Observable
+import org.bukkit.command.PluginCommand
 import org.bukkit.event.Event
 import org.bukkit.event.EventPriority
 import org.bukkit.plugin.Plugin
@@ -57,7 +58,7 @@ object RxBukkit {
      * @param command the command to create the observable for
      */
     @JvmStatic
-    fun observeCommand(plugin: Plugin, command: String): Observable<CommandEvent> {
+    fun observeCommand(plugin: Plugin, command: PluginCommand): Observable<CommandEvent> {
         return bukkitObservableFactory.createCommandObservable(plugin, command)
     }
 }

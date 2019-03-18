@@ -6,6 +6,7 @@ import com.kimarilem.bukkit.rxbukkit.internal.bukkit.CommandService
 import com.kimarilem.bukkit.rxbukkit.internal.bukkit.EventService
 import io.reactivex.Emitter
 import io.reactivex.Observable
+import org.bukkit.command.PluginCommand
 import org.bukkit.event.Event
 import org.bukkit.event.EventPriority
 import org.bukkit.event.Listener
@@ -33,17 +34,15 @@ internal class BukkitObservableFactory(
         }
     }
 
-    fun createCommandObservable(plugin: Plugin, command: String) = Observable.create<CommandEvent> { emitter ->
+    fun createCommandObservable(plugin: Plugin, command: PluginCommand) = Observable.create<CommandEvent> { emitter ->
         val commandExecutor = BukkitCommandExecutor(emitter)
-        val pluginCommand = commandService.getCommand(plugin, command)
-            ?: throw NullPointerException("Command '$command' not registered")
         val listener = object : Listener {}
 
-        commandService.registerCommand(pluginCommand, commandExecutor)
+        commandService.registerCommand(command, commandExecutor)
         registerDisableEvent(plugin, emitter, listener)
 
         emitter.setCancellable {
-            commandService.deregisterCommand(pluginCommand)
+            commandService.deregisterCommand(command)
             eventService.deregisterEvents(listener)
         }
     }
